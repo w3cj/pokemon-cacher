@@ -1,4 +1,20 @@
 services:
+  app:
+    build:
+      context: .
+      target: prod
+    ports:
+      - ${PORT}:${PORT}
+    command: node src/index.js
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=production
+      - PORT=${PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_USERNAME=${REDIS_USERNAME}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
   db:
     image: redis:7.2.4
     ports:
